@@ -1,0 +1,725 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Pacifico&display=swap');
+
+:root {
+    --primary: #4A0E13; /* Deep Elegant Burgundy */
+    --secondary: #D4AF37; /* Classic Gold */
+    --accent: #D4AF37; /* Use gold for accents for cohesiveness */
+    --bg-light: #FAF7F2; /* Sophisticated Alabaster/Cream */
+    --bg-header: #ffffff; /* Clean white for header */
+    --text-dark: #2C2C2C; /* Softer black */
+    --text-light: #FFFFFF;
+    --text-menu: #4A0E13;
+    --glass: rgba(255, 255, 255, 0.7);
+    --shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Outfit', sans-serif;
+}
+
+body {
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+h1, h2, h3 {
+    font-weight: 700;
+}
+.brand-font {
+    font-family: 'Pacifico', cursive;
+}
+
+/* --- Layout --- */
+
+/* --- Hero Banner & Floating Nav --- */
+
+.hero-banner-section {
+    width: 100%;
+    background-color: #2c1108; /* Dark brown to match image edges */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+}
+
+.hero-banner-img {
+    width: 100%;
+    max-width: 1400px; /* Prevents it from getting too large on huge monitors */
+    height: auto;      /* Keeps aspect ratio perfectly without cropping */
+    display: block;
+}
+
+.hero-nav {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 2rem;
+    z-index: 10;
+    padding: 1.5rem 5%;
+    background: linear-gradient(to bottom, rgba(40, 5, 8, 0.7) 0%, rgba(0,0,0,0) 100%);
+}
+
+/* Top Nav & Hero Flags */
+
+.hero-flags {
+    position: absolute;
+    bottom: 15px;
+    right: 5px; /* Pushed as far right as possible */
+    display: flex;
+    gap: 8px; /* Slightly reduced gap to save horizontal space */
+    z-index: 10;
+}
+
+.flag-hero {
+    width: 45px;
+    height: 30px;
+    cursor: pointer;
+    border-radius: 4px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    object-fit: cover;
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+.flag-hero:hover {
+    transform: scale(1.2);
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 1.5rem;
+    flex-wrap: wrap; /* Fixes overlap on mobile */
+    justify-content: flex-end;
+}
+
+nav a {
+    color: #ffffff;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+    text-decoration: none;
+    font-weight: 500;
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.05rem;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+nav a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -4px;
+    left: 0;
+    background-color: var(--secondary);
+}
+
+nav a:hover {
+    color: var(--secondary);
+}
+
+/* Category bar now sits right below hero without margins */
+
+.category-bar {
+    padding: 1rem 5%;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    overflow-x: auto;
+    white-space: nowrap;
+    margin-bottom: 2rem;
+}
+
+.category-bar a {
+    background: transparent;
+    color: var(--text-dark);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 0.6rem 1.5rem;
+    border-radius: 30px;
+    border: 1px solid rgba(0,0,0,0.1);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.category-bar a:hover, .category-bar a.active {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+    box-shadow: 0 4px 15px rgba(74, 14, 19, 0.2);
+}
+
+.breadcrumb {
+    padding: 1rem 10%;
+    font-size: 0.9rem;
+    color: #888;
+}
+
+.breadcrumb span {
+    color: var(--accent);
+}
+
+/* --- Products --- */
+
+.section-title {
+    display: none; /* Removed as we have the hero title now */
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 3rem;
+    padding: 0 10% 6rem;
+}
+
+.product-card {
+    background: white;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.04);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 1px solid rgba(0,0,0,0.02);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 25px 50px rgba(0,0,0,0.08);
+}
+
+.product-img-wrapper {
+    height: 200px;
+    background: #f9f9f9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.product-img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s;
+}
+
+.product-card:hover .product-img-wrapper img {
+    transform: scale(1.1);
+}
+
+.product-info {
+    padding: 1.5rem;
+}
+
+.product-info h3 {
+    font-size: 1.5rem;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+}
+
+.product-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.product-price {
+    font-weight: 700;
+    color: var(--secondary);
+    font-size: 1rem;
+}
+
+.btn-detail {
+    background: white;
+    border: 2px solid var(--primary);
+    color: var(--primary);
+    padding: 0.6rem 1.5rem;
+    border-radius: 30px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.btn-detail::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background: var(--primary);
+    transition: width 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: -1;
+}
+
+.btn-detail:hover::before {
+    width: 100%;
+}
+
+.btn-detail:hover {
+    color: white;
+    box-shadow: 0 8px 20px rgba(74, 14, 19, 0.3);
+    transform: translateY(-3px);
+}
+
+/* --- Modal --- */
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3000;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(5px);
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.modal-content {
+    background: #FFF9F0; /* Cream background like reference */
+    width: 95%;
+    max-width: 1000px;
+    max-height: 90vh;
+    border-radius: 40px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+    border: 3px solid var(--secondary);
+    display: flex;
+    flex-direction: column;
+}
+
+.close-modal {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    font-size: 1.5rem;
+    color: var(--primary);
+    cursor: pointer;
+    z-index: 100;
+    background: white;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    transition: transform 0.3s;
+}
+
+.close-modal:hover {
+    transform: rotate(90deg);
+}
+
+.modal-body {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.modal-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    height: 100%;
+}
+
+.modal-image {
+    position: relative;
+    background: white;
+    border-right: 2px solid var(--secondary);
+}
+
+.modal-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.modal-cake-title {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 3rem 2rem 2rem;
+    background: linear-gradient(transparent, rgba(97, 17, 22, 0.9));
+    color: white;
+}
+
+.modal-cake-title h2 {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.badge {
+    background: var(--secondary);
+    color: var(--primary);
+    padding: 0.4rem 1.2rem;
+    border-radius: 30px;
+    font-weight: 800;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.modal-details {
+    padding: 3rem;
+    background: url('https://www.transparenttextures.com/patterns/cream-paper.png');
+}
+
+/* --- Accordion --- */
+
+.accordion {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.accordion-item {
+    background: white;
+    border: 1px solid rgba(227, 176, 68, 0.4);
+    border-radius: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+    transition: transform 0.3s;
+}
+
+.accordion-item:hover {
+    transform: translateX(5px);
+}
+
+.accordion-header {
+    padding: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    font-weight: 700;
+    color: var(--primary);
+    font-size: 1.1rem;
+}
+
+.accordion-item.active {
+    border-color: var(--secondary);
+    box-shadow: 0 10px 20px rgba(227, 176, 68, 0.1);
+}
+
+.accordion-item.active .accordion-header {
+    border-bottom: 1px solid rgba(227, 176, 68, 0.2);
+    color: var(--primary);
+}
+
+.accordion-content {
+    padding: 1.5rem;
+    font-size: 1rem;
+    color: #444;
+    line-height: 1.7;
+}
+
+/* Nutrition Table */
+.nutrition-table {
+    width: 100%;
+}
+
+.nutrition-table tr {
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.nutrition-table th {
+    text-align: left;
+    padding: 1rem 0;
+    color: #888;
+    font-weight: 500;
+}
+
+.nutrition-table td {
+    text-align: right;
+    padding: 1rem 0;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+@media (max-width: 768px) {
+    .modal-grid {
+        grid-template-columns: 1fr;
+    }
+    .modal-image {
+        height: 300px;
+    }
+}
+
+/* --- AI Chat Widget --- */
+
+#chat-widget {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 2000;
+}
+
+.chat-button {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 10px 25px rgba(97, 17, 22, 0.4);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 2px solid var(--secondary);
+}
+
+.chat-button:hover {
+    transform: scale(1.1) rotate(10deg);
+    box-shadow: 0 15px 35px rgba(97, 17, 22, 0.6);
+}
+
+.chat-button svg {
+    width: 35px;
+    height: 35px;
+    fill: var(--secondary);
+}
+
+.chat-window {
+    position: fixed;
+    bottom: 110px;
+    right: 30px;
+    width: 400px;
+    height: 600px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transform: translateY(20px);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 1px solid var(--secondary);
+}
+
+.chat-window.active {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: all;
+}
+
+.chat-header {
+    background: var(--primary);
+    color: var(--secondary);
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.chat-header h3 {
+    margin: 0;
+    font-size: 1.4rem;
+}
+
+.chat-messages {
+    flex: 1;
+    padding: 1rem;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.message {
+    max-width: 80%;
+    padding: 0.8rem 1rem;
+    border-radius: 15px;
+    font-size: 0.95rem;
+    position: relative;
+}
+
+.message.bot {
+    align-self: flex-start;
+    background: #f0f0f0;
+    border-bottom-left-radius: 2px;
+}
+
+.message.user {
+    align-self: flex-end;
+    background: var(--primary);
+    color: white;
+    border-bottom-right-radius: 2px;
+}
+
+.chat-input-container {
+    padding: 1rem;
+    border-top: 1px solid #eee;
+    display: flex;
+    gap: 0.5rem;
+}
+
+.chat-input-container input {
+    flex: 1;
+    border: 1px solid #ddd;
+    padding: 0.8rem 1rem;
+    border-radius: 25px;
+    outline: none;
+}
+
+.chat-input-container button {
+    background: var(--primary);
+    border: none;
+    color: var(--secondary);
+    padding: 0.8rem 1.2rem;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+/* --- Footer --- */
+
+footer {
+    background: var(--primary);
+    color: var(--text-light);
+    padding: 4rem 10% 2rem;
+    margin-top: 4rem;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.footer-section h4 {
+    color: var(--secondary);
+    margin-bottom: 1.5rem;
+    font-size: 1.2rem;
+}
+
+.footer-section p, .footer-section a {
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    font-size: 0.9rem;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Typing Indicator */
+.typing-dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background-color: #888;
+    border-radius: 50%;
+    margin: 0 2px;
+    animation: typing 1.4s infinite both;
+}
+
+.typing-dot:nth-child(1) { animation-delay: 0s; }
+.typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes typing {
+    0%, 80%, 100% { transform: scale(0); opacity: 0.3; }
+    40% { transform: scale(1); opacity: 1; }
+}
+
+@media (max-width: 768px) {
+    .hero-banner-section {
+        /* No constraints, scales naturally */
+    }
+    
+    .hero-nav {
+        flex-direction: column;
+        justify-content: center;
+        background: linear-gradient(to bottom, rgba(40, 5, 8, 0.9) 0%, rgba(0,0,0,0) 100%);
+        padding: 1.5rem 5% 1.5rem;
+    }
+    
+    nav ul {
+        justify-content: center;
+        gap: 1rem;
+    }
+
+    .modal-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .modal-image {
+        height: 250px;
+    }
+    
+    .chat-button {
+        width: 55px;
+        height: 55px;
+    }
+    
+    .chat-button svg {
+        width: 25px;
+        height: 25px;
+    }
+    
+    .chat-window {
+        width: 90vw;
+        height: 70vh;
+        right: 5vw;
+        bottom: 90px;
+    }
+    
+    .product-grid {
+        padding: 0 5% 4rem;
+        gap: 2rem;
+    }
+}
