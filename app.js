@@ -107,10 +107,14 @@ function initCakeGrid() {
         else if (cake.name.includes('Amendoim') || cake.name.includes('Queijo')) imgPath = 'assets/milho.png';
         else if (cake.name.includes('Mesclado')) imgPath = 'assets/chocolate.png';
         else imgPath = 'assets/saia.png'; // Coco, Limão or fallback
+        let badgeHTML = '';
+        if (cake.name === 'Bolo de Milho') badgeHTML = '<div class="product-badge">Mais Vendido 👑</div>';
+        if (cake.name === 'Bolo de Chocolate') badgeHTML = '<div class="product-badge">Favorito do Rei ⭐</div>';
 
         const card = document.createElement('div');
         card.className = 'product-card fade-in';
         card.innerHTML = `
+            ${badgeHTML}
             <div class="product-img-wrapper">
                 <img src="${imgPath}" alt="${cake.name}" loading="lazy">
             </div>
@@ -294,7 +298,9 @@ async function getGeminiResponse() {
     const systemPrompt = `Você é o "Concierge do Rei", o assistente virtual de luxo da padaria "Rei do Bolo".
 Sua missão é encantar o cliente com um atendimento majestoso, prestativo e acolhedor.
 O Lema da empresa é: "Sabor e Qualidade".
-Endereço físico: Av. José Pinheiro dos Santos, 2441, bairro Pinheirópolis, Caruaru.
+Endereço físico: Avenida José Pinheiro dos Santos, 2441, Cidade Alta, Caruaru - PE, CEP 55031-148.
+Instagram: @rei_do_bolo_caruaru | Facebook: ReidoBolo Caruaru | Email: reidobolocaruaru@gmail.com
+História: Fundada por Edilson, um ex-caminhoneiro da zona rural que, incentivado pelo pai, vendeu a casa para comprar um carro e vender bolos, transformando muito sacrifício em uma grande fábrica de bolos caseiros.
 Nossos produtos disponíveis hoje (apenas bolos caseiros sem recheio): ${cakes.map(c => c.name).join(', ')}.
 Regras de atendimento:
 1. Responda sempre em Português do Brasil de forma extremamente elegante e concisa (máximo 3 frases curtas por resposta).
