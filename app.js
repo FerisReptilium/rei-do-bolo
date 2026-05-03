@@ -1,5 +1,4 @@
-const API_KEY = 'AIzaSyDQqSp8IjoV6HJvJWYezCzzT_oQTezcBao';
-const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${API_KEY}`;
+const API_URL = '/api/chat';
 
 const baseIngredients = 'Açúcar, Margarina, Ovos, Farinha de trigo, Fermento químico, Sorbato, Água, Leite em pó';
 
