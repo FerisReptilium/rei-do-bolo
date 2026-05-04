@@ -1,4 +1,4 @@
-const API_KEY = 'AIzaSyA-DV5JV4VmmxTyDhOts9Ju5tsB9g4RzH4';
+const API_KEY = 'SUA_NOVA_CHAVE_AQUI'; // ALERTA: Nunca coloque sua chave real aqui se for commitar o código!
 const model = 'gemini-1.5-flash';
 const url = `https://generativelanguage.googleapis.com/v1/models/${model}:generateContent?key=${API_KEY}`;
 

@@ -73,6 +73,10 @@ h1, h2, h3 {
     background: linear-gradient(to bottom, rgba(40, 5, 8, 0.7) 0%, rgba(0,0,0,0) 100%);
 }
 
+.mobile-menu-toggle {
+    display: none;
+}
+
 /* Top Nav & Hero Flags */
 
 .hero-flags {
@@ -161,6 +165,18 @@ nav a:hover {
     color: white;
     border-color: var(--primary);
     box-shadow: 0 4px 15px rgba(74, 14, 19, 0.2);
+}
+
+/* --- Reveal Animations --- */
+.reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .breadcrumb {
@@ -558,14 +574,32 @@ nav a:hover {
     width: 70px;
     height: 70px;
     border-radius: 50%;
-    background: var(--primary);
+    background: white;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    box-shadow: 0 10px 25px rgba(97, 17, 22, 0.4);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    border: 2px solid var(--secondary);
+    border: 3px solid var(--secondary);
+    overflow: hidden;
+    animation: float 4s ease-in-out infinite;
+}
+
+.chat-avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s;
+}
+
+.chat-button:hover .chat-avatar-img {
+    transform: scale(1.15);
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-12px) rotate(3deg); }
 }
 
 .chat-button:hover {
@@ -608,15 +642,62 @@ nav a:hover {
 .chat-header {
     background: var(--primary);
     color: var(--secondary);
-    padding: 1.5rem;
+    padding: 1.2rem 1.5rem;
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 1.2rem;
+}
+
+.bot-avatar-container {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid var(--secondary);
+    background: white;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.bot-avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .chat-header h3 {
     margin: 0;
-    font-size: 1.4rem;
+    font-size: 1.2rem;
+}
+
+.chat-suggestions {
+    padding: 0.8rem 1rem;
+    display: flex;
+    gap: 0.6rem;
+    overflow-x: auto;
+    background: #fff;
+    border-bottom: 1px solid #f0f0f0;
+    scrollbar-width: none;
+}
+
+.chat-suggestions::-webkit-scrollbar { display: none; }
+
+.chat-suggestions button {
+    background: #fdf9f0;
+    border: 1px solid var(--secondary);
+    color: var(--primary);
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.chat-suggestions button:hover {
+    background: var(--secondary);
+    color: white;
+    transform: translateY(-2px);
 }
 
 .chat-messages {
@@ -672,6 +753,116 @@ nav a:hover {
     border-radius: 25px;
     cursor: pointer;
     font-weight: 700;
+}
+
+/* --- History Section --- */
+.history-section {
+    padding: 6rem 10%;
+    background: #f9f9f9;
+}
+
+.history-section .section-title {
+    display: block;
+    text-align: center;
+    color: var(--primary);
+    font-size: 2.5rem;
+    margin-bottom: 4rem;
+}
+
+.history-card {
+    background: white;
+    padding: 4rem 5rem;
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    max-width: 1000px;
+    margin: 0 auto;
+    position: relative;
+    border: 1px solid rgba(0,0,0,0.03);
+}
+
+.history-image {
+    float: right;
+    width: 180px;
+    height: 240px;
+    margin: 0.5rem 0 1.5rem 3rem;
+    border-radius: 20px;
+    position: relative;
+}
+
+.history-image::before {
+    content: '';
+    position: absolute;
+    inset: -6px;
+    border: 2px solid var(--secondary);
+    border-radius: 26px;
+    z-index: 0;
+}
+
+.history-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    border-radius: 20px;
+    display: block;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.history-icon {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    color: var(--secondary);
+    text-align: center;
+    clear: both; /* Optional, but let's just leave it floated or at top */
+}
+
+/* Let's put the crown icon at the top center of the text */
+.history-icon {
+    display: none; /* Hide the crown as the portrait is now the focus */
+}
+
+.history-text {
+    font-size: 1.15rem;
+    line-height: 1.85;
+    color: #444;
+    margin-bottom: 1.5rem;
+    text-align: justify;
+}
+
+.history-signature {
+    font-style: italic;
+    font-weight: bold;
+    color: var(--primary);
+    margin-top: 3rem;
+    padding-left: 1.5rem;
+    border-left: 4px solid var(--secondary);
+    font-size: 1.2rem;
+    clear: both;
+}
+
+.dropcap {
+    float: left;
+    font-size: 4.5rem;
+    line-height: 4rem;
+    padding: 0 0.8rem 0 0;
+    color: var(--secondary);
+    font-family: 'Playfair Display', serif;
+}
+
+@media (max-width: 900px) {
+    .history-card {
+        padding: 3rem 2rem;
+    }
+    .history-image {
+        float: none;
+        margin: 0 auto 3rem;
+        display: block;
+    }
+    .history-text {
+        text-align: left;
+    }
 }
 
 /* --- Franchise Section --- */
@@ -820,12 +1011,36 @@ nav a:hover {
 
 .location-card p {
     color: #666;
-    line-height: 1.8;
-    margin-bottom: 2rem;
-    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
 }
 
-.btn-map {
+.ceaca-highlight {
+    font-size: 1.1rem !important;
+    color: var(--primary) !important;
+    background: rgba(227, 176, 68, 0.15);
+    padding: 0.8rem;
+    border-radius: 8px;
+    border-left: 4px solid var(--secondary);
+}
+
+.distribuidora-list {
+    list-style: none;
+    text-align: left;
+    margin: 1.5rem 0 2.5rem 0;
+    padding: 0 1rem;
+}
+
+.distribuidora-list li {
+    font-size: 1.05rem;
+    color: #444;
+    margin-bottom: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-map, .btn-franchise {
     display: inline-block;
     background: var(--primary);
     color: white;
@@ -948,7 +1163,6 @@ footer {
 .social-icon {
     width: 24px;
     height: 24px;
-    fill: currentColor;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -963,23 +1177,17 @@ footer {
 
 .social-link.insta:hover {
     border-color: #E1306C;
-}
-.social-link.insta:hover .social-icon {
-    fill: #E1306C;
+    color: #E1306C;
 }
 
 .social-link.face:hover {
     border-color: #1877F2;
-}
-.social-link.face:hover .social-icon {
-    fill: #1877F2;
+    color: #1877F2;
 }
 
 .social-link.mail:hover {
     border-color: #EA4335;
-}
-.social-link.mail:hover .social-icon {
-    fill: #EA4335;
+    color: #EA4335;
 }
 
 .footer-bottom {
@@ -1026,20 +1234,125 @@ footer {
 }
 
 @media (max-width: 768px) {
-    .hero-banner-section {
-        /* No constraints, scales naturally */
-    }
-    
-    .hero-nav {
+    /* Mobile Menu Toggle */
+    .mobile-menu-toggle {
+        display: flex;
         flex-direction: column;
-        justify-content: center;
-        background: linear-gradient(to bottom, rgba(40, 5, 8, 0.9) 0%, rgba(0,0,0,0) 100%);
-        padding: 1.5rem 5% 1.5rem;
+        justify-content: space-around;
+        width: 30px;
+        height: 25px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        z-index: 100;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+    }
+
+    .mobile-menu-toggle span {
+        width: 30px;
+        height: 3px;
+        background: var(--secondary);
+        border-radius: 10px;
+        transition: all 0.3s linear;
+        position: relative;
+        transform-origin: 1px;
+    }
+
+    .mobile-menu-toggle.active span:nth-child(1) { transform: rotate(45deg); }
+    .mobile-menu-toggle.active span:nth-child(2) { opacity: 0; }
+    .mobile-menu-toggle.active span:nth-child(3) { transform: rotate(-45deg); }
+
+    .hero-nav {
+        background: transparent;
+        padding: 0;
+    }
+
+    #main-nav {
+        position: fixed !important;
+        top: 0 !important;
+        right: -100% !important;
+        width: 280px !important;
+        height: 100vh !important;
+        background: var(--primary) !important;
+        padding: 100px 2rem 2rem !important;
+        transition: right 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+        z-index: 999 !important;
+        box-shadow: -10px 0 30px rgba(0,0,0,0.3) !important;
+        display: block !important;
+    }
+
+    #main-nav.active {
+        right: 0 !important;
+    }
+
+    #main-nav ul {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 2.5rem !important;
+        display: flex !important;
+    }
+
+    nav a {
+        font-size: 1.2rem;
+        color: white;
+    }
+
+    /* Sections Padding */
+    .history-section, .franchise-section, .location-section {
+        padding: 4rem 5%;
+    }
+
+    .section-title {
+        font-size: 2rem !important;
+    }
+
+    /* Floating Buttons */
+    .whatsapp-button {
+        width: 50px;
+        height: 50px;
+        bottom: 20px;
+        left: 20px;
+    }
+
+    #chat-widget {
+        bottom: 20px;
+        right: 20px;
+    }
+
+    .chat-button {
+        width: 50px;
+        height: 50px;
+    }
+
+    .chat-window {
+        width: 90vw;
+        right: 5vw;
+        bottom: 80px;
+    }
+
+    /* Hero Flags */
+    .hero-flags {
+        bottom: 10px;
+        right: 10px;
     }
     
-    nav ul {
-        justify-content: center;
-        gap: 1rem;
+    .flag-hero {
+        width: 35px;
+        height: 23px;
+    }
+
+    /* Product Grid */
+    .product-grid {
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        padding: 0 5% 4rem;
+        gap: 2rem;
+    }
+
+    .history-card {
+        padding: 2.5rem 1.5rem;
     }
 
     .modal-grid {
@@ -1049,26 +1362,126 @@ footer {
     .modal-image {
         height: 250px;
     }
-    
-    .chat-button {
-        width: 55px;
-        height: 55px;
-    }
-    
-    .chat-button svg {
-        width: 25px;
-        height: 25px;
-    }
-    
-    .chat-window {
-        width: 90vw;
-        height: 70vh;
-        right: 5vw;
-        bottom: 90px;
-    }
-    
-    .product-grid {
-        padding: 0 5% 4rem;
-        gap: 2rem;
-    }
+}
+
+/* --- Testimonials --- */
+.testimonials-section {
+    padding: 8rem 10%;
+    background: #fdfaf5;
+    text-align: center;
+}
+
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 3rem;
+    margin-top: 4rem;
+}
+
+.testimonial-card {
+    background: white;
+    padding: 3rem 2.5rem;
+    border-radius: 30px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.03);
+    border-top: 5px solid var(--secondary);
+    transition: all 0.4s;
+    position: relative;
+}
+
+.testimonial-card::before {
+    content: "“";
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    font-size: 5rem;
+    color: var(--secondary);
+    opacity: 0.2;
+    font-family: serif;
+}
+
+.testimonial-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 25px 60px rgba(0,0,0,0.08);
+}
+
+.t-stars {
+    color: var(--secondary);
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+}
+
+.testimonial-card p {
+    font-style: italic;
+    color: #555;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 2rem;
+}
+
+.t-author {
+    font-weight: 700;
+    color: var(--primary);
+    font-size: 1rem;
+    letter-spacing: 0.5px;
+}
+
+/* --- Newsletter --- */
+.newsletter-section {
+    padding: 8rem 10%;
+    background: linear-gradient(135deg, var(--primary) 0%, #611116 100%);
+    color: white;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.newsletter-section::before {
+    content: "👑";
+    position: absolute;
+    font-size: 30rem;
+    opacity: 0.05;
+    top: -100px;
+    left: -100px;
+    transform: rotate(-20deg);
+}
+
+.newsletter-content {
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+}
+
+.newsletter-content h2 {
+    font-size: 3rem;
+    color: var(--secondary);
+    margin-bottom: 1.5rem;
+}
+
+.newsletter-content p {
+    font-size: 1.25rem;
+    margin-bottom: 3rem;
+    color: rgba(255,255,255,0.9);
+}
+
+.newsletter-form {
+    display: flex;
+    gap: 1.2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.newsletter-form input {
+    padding: 1.2rem 2rem;
+    border-radius: 40px;
+    border: none;
+    outline: none;
+    min-width: 280px;
+    font-size: 1.1rem;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.newsletter-form .btn-franchise {
+    padding: 1.2rem 2.5rem;
+    box-shadow: 0 10px 25px rgba(212, 175, 55, 0.3);
 }
