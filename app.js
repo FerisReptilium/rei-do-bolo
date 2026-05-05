@@ -258,9 +258,10 @@ Regras de atendimento:
         });
 
         if (!response.ok) {
-            const errorDetails = await response.text();
-            console.error('API Error Details:', errorDetails);
-            throw new Error(`API Fail: ${response.status}`);
+            const errorData = await response.json();
+            console.error('API Error Details:', errorData);
+            const errorMessage = errorData.details || errorData.error || `Status: ${response.status}`;
+            throw new Error(`API Fail: ${errorMessage}`);
         }
 
         const data = await response.json();

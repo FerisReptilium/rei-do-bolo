@@ -10,11 +10,12 @@ export default async function handler(req, res) {
         return res.status(500).json({ error: 'Server configuration error' });
     }
 
-    const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
+    const API_URL = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
+    
+    console.log("Using API_URL:", API_URL.replace(API_KEY, '***'));
 
     try {
         console.log("Sending request to Gemini API...");
-        // Forward the exact body sent by the frontend to the Gemini API
         const response = await fetch(API_URL, {
             method: 'POST',
             headers: {
@@ -23,13 +24,16 @@ export default async function handler(req, res) {
             body: JSON.stringify(req.body)
         });
 
+        const data = await response.json();
+
         if (!response.ok) {
-            const errorData = await response.text();
-            console.error("Gemini API Error:", response.status, errorData);
-            return res.status(response.status).json({ error: 'Failed to communicate with Gemini API' });
+            console.error("Gemini API Error:", response.status, data);
+            return res.status(response.status).json({ 
+                error: 'Failed to communicate with Gemini API',
+                details: data.error ? data.error.message : 'Unknown error'
+            });
         }
 
-        const data = await response.json();
         return res.status(200).json(data);
     } catch (error) {
         console.error("Network or parsing error:", error);
