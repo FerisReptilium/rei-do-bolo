@@ -13,6 +13,7 @@ export default async function handler(req, res) {
     const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
 
     try {
+        console.log("Sending request to Gemini API...");
         // Forward the exact body sent by the frontend to the Gemini API
         const response = await fetch(API_URL, {
             method: 'POST',

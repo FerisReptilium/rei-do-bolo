@@ -1,0 +1,13 @@
+{
+  "name": "rei-do-bolo-site",
+  "version": "1.0.0",
+  "description": "Site profissional Rei do Bolo com Concierge IA",
+  "main": "index.html",
+  "scripts": {
+    "start": "serve ."
+  },
+  "dependencies": {},
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

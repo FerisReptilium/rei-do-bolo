@@ -250,7 +250,7 @@ Regras de atendimento:
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                systemInstruction: {
+                system_instruction: {
                     parts: [{ text: systemPrompt }]
                 },
                 contents: chatHistory
