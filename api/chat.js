@@ -19,7 +19,7 @@ export default async function handler(req, res) {
         return res.status(500).json({ error: 'Server configuration error' });
     }
 
-    const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
+    const API_URL = 'https://api.groq.com/openai/v1/chat/completions';
     
     console.log("Using API_URL:", API_URL.replace(API_KEY, '***'));
 
@@ -28,7 +28,8 @@ export default async function handler(req, res) {
         const response = await fetch(API_URL, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${API_KEY}`
             },
             body: JSON.stringify(req.body)
         });

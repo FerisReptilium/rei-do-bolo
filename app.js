@@ -201,7 +201,7 @@ async function sendMessage() {
     input.value = '';
 
     // Add user message to history
-    chatHistory.push({ role: "user", parts: [{ text: text }] });
+    chatHistory.push({ role: "user", content: text });
 
     // Typing indicator
     const typingId = 'typing-' + Date.now();
@@ -217,7 +217,7 @@ async function sendMessage() {
 
     // Save bot response to history if it's not an error message
     if (!responseText.includes('imprevisto real')) {
-        chatHistory.push({ role: "model", parts: [{ text: responseText }] });
+        chatHistory.push({ role: "assistant", content: responseText });
     }
 }
 
@@ -247,10 +247,13 @@ Regras de atendimento:
 
     try {
         const payload = {
-            contents: chatHistory,
-            system_instruction: {
-                parts: [{ text: systemPrompt }]
-            }
+            model: "llama-3.3-70b-versatile",
+            messages: [
+                { role: "system", content: systemPrompt },
+                ...chatHistory
+            ],
+            temperature: 0.7,
+            max_tokens: 500
         };
 
         const response = await fetch(API_URL, {
@@ -267,7 +270,7 @@ Regras de atendimento:
         }
 
         const data = await response.json();
-        return data.candidates[0].content.parts[0].text;
+        return data.choices[0].message.content;
     } catch (error) {
         console.error('Falha de comunicação com o Agente IA:', error);
         return "Peço desculpas, majestade, mas tivemos um imprevisto técnico momentâneo. Como posso ajudar de outra forma?";
