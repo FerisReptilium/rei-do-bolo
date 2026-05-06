@@ -246,16 +246,17 @@ Regras de atendimento:
 4. Se a resposta for complexa ou você não souber, peça desculpas polidamente e convide o cliente a visitar a loja física.`;
 
     try {
-        const contents = [
-            { role: "user", parts: [{ text: `CONTEXTO DO SISTEMA (Aja conforme estas regras): ${systemPrompt}` }] },
-            { role: "model", parts: [{ text: "Compreendido, Majestade. Estou pronto para atender seus clientes com a elegância e o sabor do Rei do Bolo." }] },
-            ...chatHistory
-        ];
+        const payload = {
+            contents: chatHistory,
+            system_instruction: {
+                parts: [{ text: systemPrompt }]
+            }
+        };
 
         const response = await fetch(API_URL, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ contents })
+            body: JSON.stringify(payload)
         });
 
         if (!response.ok) {
